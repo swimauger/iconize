@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /usr/local/bin
+curl https://raw.githubusercontent.com/swimauger/iconize/master/bin/iconize --output iconize
+chmod +x iconize

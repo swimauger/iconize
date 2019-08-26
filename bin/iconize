@@ -1,0 +1,26 @@
+#!/bin/sh
+
+generate()
+{
+  SOURCE=$1
+  ICONSET=`echo $SOURCE | sed "s/^\(.*\)\..*$/\1/"`.iconset
+  mkdir $ICONSET
+  for size in 512 256 128 32 16
+  do
+    echo "\033[0;36mGenerating "$size"x"$size" image\033[0m"
+    sips -z $size $size $SOURCE --out icon_"$size"x"$size".png > /dev/null
+    mv icon_"$size"x"$size".png $ICONSET
+  done
+  echo "\033[0;36mGenerating icns"
+  iconutil -c icns $ICONSET
+  rm -rf $ICONSET
+  echo "\033[0;32mFinished\033[0m"
+  echo "Thank you for using iconize by Mark Auger!"
+}
+
+if [ $# -gt 0 ]
+then
+  generate $1
+else
+  echo "\033[0;31mNot enough arguments\033[0m"
+fi
